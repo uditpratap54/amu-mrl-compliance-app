@@ -1,0 +1,69 @@
+
+{
+  "appTitle": "AMU/MRL अनुपालन एप्लिकेशन",
+  "language": "भाषा",
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "farmerForm": "किसान फॉर्म",
+    "livestockInventory": "पालतू Inventory",
+    "medicineLog": "दवा लॉग",
+    "amuLog": "AMU लॉग",
+    "chatbot": "चैटबॉट",
+    "gamification": "गेमिफिकेशन",
+    "reports": "रिपोर्ट्स",
+    "logout": "लॉग आउट"
+  },
+  "form": {
+    "farmer": {
+      "name": "नाम",
+      "phone": "फोन",
+      "address": "पता",
+      "farmId": "फार्म आईडी",
+      "submit": "किसान जमा करें"
+    },
+    "livestock": {
+      "tagId": "टैग आईडी",
+      "species": "प्रजाति",
+      "breed": "ब्रेड",
+      "age": "आयु (साल)",
+      "weight": "वज़न (कि.ग्रा.)",
+      "farmerId": "किसान आईडी",
+      "status": "स्थिति",
+      "submit": "पालतू जमा करें"
+    },
+    "medicine": {
+      "code": "दवा कोड",
+      "name": "दवा का नाम",
+      "atcClass": "ATC वर्ग",
+      "withdrawalPeriodDays": "विथड्रॉल अवधि (दिन)",
+      "mrlMgPerKg": "MRL (मि.ग्रा/कि.ग्रा)",
+      "submit": "दवा जमा करें"
+    },
+    "amuEvent": {
+      "animalTagId": "जानवर टैग आईडी",
+      "medicineCode": "दवा कोड",
+      "doseMgPerKg": "खुराक (मि.ग्रा/कि.ग्रा)",
+      "route": "रास्ता",
+      "date": "दिनांक",
+      "prescriber": "प्रिस्क्राइबर",
+      "notes": "टिप्पणियाँ",
+      "submit": "AMU इवेंट जमा करें"
+    }
+  },
+  "validation": {
+    "required": "{{field}} आवश्यक है",
+    "phoneInvalid": "अमान्य फोन नंबर",
+    "numberPositive": "{{field}} सकारात्मक संख्या होनी चाहिए",
+    "dateInvalid": "अमान्य दिनांक"
+  },
+  "reports": {
+    "totalLivestock": "कुल पालतू",
+    "amuEventsThisMonth": "इस महीने के AMU इवेंट",
+    "percentCompliant": "% अनुपालन इवेंट",
+    "mrlRiskAlerts": "MRL जोखिम अलर्ट",
+    "rescoreButton": "पिछले 30 दिन फिर से स्कोर करें"
+  },
+  "chatbot": {
+    "help": "मदद चाहिए? अपने सवाल पूछें!"
+  }
+}

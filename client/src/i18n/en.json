@@ -1,0 +1,70 @@
+
+
+{
+  "appTitle": "AMU/MRL Compliance App",
+  "language": "Language",
+  "nav": {
+    "dashboard": "Dashboard",
+    "farmerForm": "Farmer Form",
+    "livestockInventory": "Livestock Inventory",
+    "medicineLog": "Medicine Log",
+    "amuLog": "AMU Log",
+    "chatbot": "Chatbot",
+    "gamification": "Gamification",
+    "reports": "Reports",
+    "logout": "Logout"
+  },
+  "form": {
+    "farmer": {
+      "name": "Name",
+      "phone": "Phone",
+      "address": "Address",
+      "farmId": "Farm ID",
+      "submit": "Submit Farmer"
+    },
+    "livestock": {
+      "tagId": "Tag ID",
+      "species": "Species",
+      "breed": "Breed",
+      "age": "Age (years)",
+      "weight": "Weight (kg)",
+      "farmerId": "Farmer ID",
+      "status": "Status",
+      "submit": "Submit Livestock"
+    },
+    "medicine": {
+      "code": "Medicine Code",
+      "name": "Medicine Name",
+      "atcClass": "ATC Class",
+      "withdrawalPeriodDays": "Withdrawal Period (days)",
+      "mrlMgPerKg": "MRL (mg/kg)",
+      "submit": "Submit Medicine"
+    },
+    "amuEvent": {
+      "animalTagId": "Animal Tag ID",
+      "medicineCode": "Medicine Code",
+      "doseMgPerKg": "Dose (mg/kg)",
+      "route": "Route",
+      "date": "Date",
+      "prescriber": "Prescriber",
+      "notes": "Notes",
+      "submit": "Submit AMU Event"
+    }
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "phoneInvalid": "Invalid phone number",
+    "numberPositive": "{{field}} must be a positive number",
+    "dateInvalid": "Invalid date"
+  },
+  "reports": {
+    "totalLivestock": "Total Livestock",
+    "amuEventsThisMonth": "AMU Events This Month",
+    "percentCompliant": "% Compliant Events",
+    "mrlRiskAlerts": "MRL Risk Alerts",
+    "rescoreButton": "Re-score Last 30 Days"
+  },
+  "chatbot": {
+    "help": "Need help? Ask your questions!"
+  }
+}

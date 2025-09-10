@@ -1,0 +1,234 @@
+# server/openapi.yaml
+openapi: 3.0.3
+info:
+  title: AMU/MRL Compliance API
+  version: 1.0.0
+servers:
+  - url: /api
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Farmer:
+      type: object
+      required:
+        - name
+        - phone
+        - address
+        - farmId
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        farmId:
+          type: string
+
+    Livestock:
+      type: object
+      required:
+        - tagId
+        - species
+        - breed
+        - age
+        - weight
+        - farmerId
+        - status
+      properties:
+        id:
+          type: string
+          readOnly: true
+        tagId:
+          type: string
+        species:
+          type: string
+        breed:
+          type: string
+        age:
+          type: number
+        weight:
+          type: number
+        farmerId:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - sold
+            - deceased
+            - quarantined
+
+    Medicine:
+      type: object
+      required:
+        - code
+        - name
+        - atcClass
+        - withdrawalPeriodDays
+        - mrlMgPerKg
+      properties:
+        id:
+          type: string
+          readOnly: true
+        code:
+          type: string
+        name:
+          type: string
+        atcClass:
+          type: string
+        withdrawalPeriodDays:
+          type: number
+        mrlMgPerKg:
+          type: number
+
+    AMUEvent:
+      type: object
+      required:
+        - animalTagId
+        - medicineCode
+        - doseMgPerKg
+        - route
+        - date
+        - prescriber
+      properties:
+        id:
+          type: string
+          readOnly: true
+        animalTagId:
+          type: string
+        medicineCode:
+          type: string
+        doseMgPerKg:
+          type: number
+        route:
+          type: string
+        date:
+          type: string
+          format: date-time
+        prescriber:
+          type: string
+        notes:
+          type: string
+
+    ComplianceLog:
+      type: object
+      required:
+        - eventRef
+      properties:
+        id:
+          type: string
+          readOnly: true
+        eventRef:
+          type: string
+        ruleFlags:
+          type: array
+          items:
+            type: string
+        modelScore:
+          type: number
+          format: float
+
+    AuthRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+        user:
+          type: object
+          properties:
+            username:
+              type: string
+            role:
+              type: string
+
+paths:
+  /auth/login:
+    post:
+      summary: Login and get JWT token
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+
+  /auth/refresh-token:
+    post:
+      summary: Refresh JWT token
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '200':
+          description: New JWT token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Invalid refresh token
+
+  /farmer:
+    get:
+      summary: Get list of farmers
+      security:
+        - bearerAuth: []
+      tags:
+        - Farmer
+      responses:
+        '200':
+          description: List of farmers
+          content:
+            application/json:
+              schema:
+               type: array
+               items:
+                 $ref: '#/components/schemas/Farmer'
+ports:
+  - "27017:27017"
