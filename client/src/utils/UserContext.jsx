@@ -10,5 +10,13 @@ export const UserContext = createContext({
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  
+  const setUserWithLogging = (userData) => {
+    console.log('UserContext: Setting user to:', userData);
+    setUser(userData);
+  };
+  
+  console.log('UserContext: Current user:', user);
+  
+  return <UserContext.Provider value={{ user, setUser: setUserWithLogging }}>{children}</UserContext.Provider>;
 };

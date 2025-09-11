@@ -71,14 +71,35 @@ const LoginPage = () => {
   const { setUser } = React.useContext(UserContext);
   const [username, setUsername] = React.useState('');
   const [role, setRole] = React.useState('FARMER'); // Simplified login
+  const [isLoading, setIsLoading] = React.useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    console.log('Form submitted!', { username, role });
+    
     if (username.trim()) {
-      setUser({ username, role });
-      navigate('/');
+      try {
+        console.log('Setting user:', { username, role });
+        setUser({ username, role });
+        
+        // Small delay to ensure state is updated
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        console.log('Navigating to home...');
+        navigate('/');
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.log('Username is empty!');
+      alert('Please enter a username');
+      setIsLoading(false);
     }
   };
 
@@ -110,7 +131,9 @@ const LoginPage = () => {
             </select>
           </label>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );
