@@ -21,7 +21,7 @@ import Gamification from './components/Gamification.jsx';
 import Reports from './pages/Reports.jsx';
 import { UserContext, UserProvider } from './utils/UserContext.jsx';
 
-// Mock auth context for demo - replace with real auth context/useQuery later
+// Mock auth context for demo - replace with real auth context later
 const UserRoleGuard = ({ allowedRoles, children }) => {
   const { user } = React.useContext(UserContext);
   if (!user) return <Navigate to="/login" replace />;

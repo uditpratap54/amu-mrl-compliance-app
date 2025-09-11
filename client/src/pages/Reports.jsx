@@ -1,5 +1,5 @@
 // client/src/pages/Reports.js
-// KPIs and charts page using Recharts and react-query
+// KPIs and charts page using Recharts
 
 import React from 'react';
 import api from '../services/api';
