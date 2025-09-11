@@ -20,7 +20,7 @@ export default function FarmerForm() {
       setMessage(null);
       try {
         await api.createFarmer(values);
-        setMessage({ type: 'success', text: 'Farmer registered successfully!' });
+        setMessage({ type: 'success', text: t('forms.farmer.success') });
         resetForm();
       } catch (err) {
         setMessage({ type: 'error', text: err.message || 'Error saving farmer' });
@@ -32,7 +32,7 @@ export default function FarmerForm() {
 
   return (
     <div className="card">
-      <h2>Add New Farmer</h2>
+      <h2>{t('forms.farmer.title')}</h2>
       
       {message && (
         <div className={message.type === 'success' ? 'success' : 'error'}>

@@ -106,33 +106,40 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
-        <h2>AMU/MRL Compliance Login</h2>
+        <div className="login-header">
+          <div className="login-icon">🐄</div>
+          <h2>{t('login.title')}</h2>
+          <p>{t('login.subtitle')}</p>
+        </div>
+        
         <div className="form-group">
           <label>
-            Username:
+            {t('login.username')}:
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              aria-label="Username"
-              placeholder="Enter your username"
+              aria-label={t('login.username')}
+              placeholder={t('login.placeholder')}
             />
           </label>
         </div>
+        
         <div className="form-group">
           <label>
-            Role:
+            {t('login.role')}:
             <select value={role} onChange={(e) => setRole(e.target.value)}>
-              <option value="ADMIN">Admin</option>
-              <option value="VET">Veterinarian</option>
-              <option value="FARMER">Farmer</option>
-              <option value="AUDITOR">Auditor</option>
+              <option value="ADMIN">🔧 Admin</option>
+              <option value="VET">🩺 Veterinarian</option>
+              <option value="FARMER">🌾 Farmer</option>
+              <option value="AUDITOR">📊 Auditor</option>
             </select>
           </label>
         </div>
+        
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
+          {isLoading ? t('login.loading') : t('login.button')}
         </button>
       </form>
     </div>

@@ -58,13 +58,54 @@
     "dateInvalid": "Invalid date"
   },
   "reports": {
+    "heading": "AMU/MRL Compliance Dashboard",
+    "subheading": "Comprehensive overview of livestock compliance metrics and analytics",
     "totalLivestock": "Total Livestock",
     "amuEventsThisMonth": "AMU Events This Month",
-    "percentCompliant": "% Compliant Events",
+    "percentCompliant": "Compliance Rate",
     "mrlRiskAlerts": "MRL Risk Alerts",
-    "rescoreButton": "Re-score Last 30 Days"
+    "rescoreButton": "Re-score Risk Analysis"
+  },
+  "login": {
+    "title": "AMU/MRL Compliance Login",
+    "subtitle": "Livestock Compliance Management System",
+    "username": "Username",
+    "role": "Role",
+    "button": "Login",
+    "loading": "Logging in...",
+    "placeholder": "Enter your username"
   },
   "chatbot": {
-    "help": "Need help? Ask your questions!"
+    "title": "AMU/MRL Compliance Assistant",
+    "subtitle": "Ask questions about antimicrobial usage and compliance regulations",
+    "help": "Ask about compliance, withdrawal periods, MRL limits...",
+    "send": "Send"
+  },
+  "gamification": {
+    "title": "Your Compliance Achievements",
+    "points": "Compliance Points",
+    "badges": "Badges Earned",
+    "badgeTitle": "Badges & Achievements",
+    "noBadges": "Complete compliance tasks to earn badges!",
+    "howToEarn": "How to Earn Points"
+  },
+  "forms": {
+    "farmer": {
+      "title": "Add New Farmer",
+      "success": "Farmer registered successfully!"
+    },
+    "livestock": {
+      "title": "Register Livestock",
+      "success": "Livestock registered successfully!"
+    },
+    "medicine": {
+      "title": "Register New Medicine",
+      "success": "Medicine registered successfully!"
+    },
+    "amuEvent": {
+      "title": "Log AMU Event",
+      "subtitle": "Record antimicrobial usage for compliance tracking",
+      "success": "AMU Event logged successfully!"
+    }
   }
 }

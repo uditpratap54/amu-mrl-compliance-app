@@ -5,7 +5,7 @@
   "nav": {
     "dashboard": "डैशबोर्ड",
     "farmerForm": "किसान फॉर्म",
-    "livestockInventory": "पालतू Inventory",
+    "livestockInventory": "पशु इन्वेंटरी",
     "medicineLog": "दवा लॉग",
     "amuLog": "AMU लॉग",
     "chatbot": "चैटबॉट",
@@ -57,13 +57,54 @@
     "dateInvalid": "अमान्य दिनांक"
   },
   "reports": {
-    "totalLivestock": "कुल पालतू",
+    "heading": "AMU/MRL अनुपालन डैशबोर्ड",
+    "subheading": "पशुधन अनुपालन मेट्रिक्स और एनालिटिक्स का समग्र अवलोकन",
+    "totalLivestock": "कुल पशु",
     "amuEventsThisMonth": "इस महीने के AMU इवेंट",
-    "percentCompliant": "% अनुपालन इवेंट",
+    "percentCompliant": "अनुपालन दर",
     "mrlRiskAlerts": "MRL जोखिम अलर्ट",
-    "rescoreButton": "पिछले 30 दिन फिर से स्कोर करें"
+    "rescoreButton": "जोखिम विश्लेषण दोबारा करें"
+  },
+  "login": {
+    "title": "AMU/MRL लॉगिन",
+    "subtitle": "पशुधन अनुपालन प्रबंधन प्रणाली",
+    "username": "उपयोगकर्ता नाम",
+    "role": "भूमिका",
+    "button": "लॉगिन",
+    "loading": "लॉगिन हो रहा है...",
+    "placeholder": "अपना नाम दर्ज करें"
   },
   "chatbot": {
-    "help": "मदद चाहिए? अपने सवाल पूछें!"
+    "title": "AMU/MRL अनुपालन सहायक",
+    "subtitle": "एंटीमाइक्रोबियल उपयोग और अनुपालन नियमों के बारे में पूछें",
+    "help": "अनुपालन, विदड्रॉल पीरियड, MRL लिमिट के बारे में पूछें...",
+    "send": "भेजें"
+  },
+  "gamification": {
+    "title": "आपकी अनुपालन उपलब्धियां",
+    "points": "अनुपालन अंक",
+    "badges": "प्राप्त बैज",
+    "badgeTitle": "बैज और उपलब्धियां",
+    "noBadges": "उपलब्धियां पाने के लिए अनुपालन कार्य पूरे करें!",
+    "howToEarn": "अंक कैसे कमाएं"
+  },
+  "forms": {
+    "farmer": {
+      "title": "नया किसान जोड़ें",
+      "success": "किसान सफलतापूर्वक पंजीकृत!"
+    },
+    "livestock": {
+      "title": "पशुधन पंजीकरण",
+      "success": "पशुधन सफलतापूर्वक पंजीकृत!"
+    },
+    "medicine": {
+      "title": "नई दवा पंजीकरण",
+      "success": "दवा सफलतापूर्वक पंजीकृत!"
+    },
+    "amuEvent": {
+      "title": "AMU इवेंट लॉग करें",
+      "subtitle": "अनुपालन ट्रैकिंग के लिए एंटीमाइक्रोबियल उपयोग रिकॉर्ड करें",
+      "success": "AMU इवेंट सफलतापूर्वक लॉग हुआ!"
+    }
   }
 }

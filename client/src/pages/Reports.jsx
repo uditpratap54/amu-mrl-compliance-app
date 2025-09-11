@@ -80,32 +80,32 @@ export default function Reports() {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>AMU/MRL Compliance Dashboard</h1>
-        <p>Comprehensive overview of livestock compliance metrics and analytics</p>
+        <h1>{t('reports.heading')}</h1>
+        <p>{t('reports.subheading')}</p>
       </div>
 
       {/* KPI Cards */}
       <div className="dashboard-stats">
         <div className="stat-card">
           <h3>{kpis.totalLivestock}</h3>
-          <p>Total Livestock</p>
+          <p>{t('reports.totalLivestock')}</p>
         </div>
         <div className="stat-card">
           <h3>{kpis.amuEventsThisMonth}</h3>
-          <p>AMU Events This Month</p>
+          <p>{t('reports.amuEventsThisMonth')}</p>
         </div>
         <div className="stat-card">
           <h3>{kpis.percentCompliant}%</h3>
-          <p>Compliance Rate</p>
+          <p>{t('reports.percentCompliant')}</p>
         </div>
         <div className="stat-card">
           <h3>{kpis.mrlRiskAlerts}</h3>
-          <p>MRL Risk Alerts</p>
+          <p>{t('reports.mrlRiskAlerts')}</p>
         </div>
       </div>
 
       <div className="card">
-        <button onClick={handleRescore} className="mb-3">Re-score Risk Analysis</button>
+        <button onClick={handleRescore} className="mb-3">{t('reports.rescoreButton')}</button>
       </div>
 
       {/* Charts Section */}
