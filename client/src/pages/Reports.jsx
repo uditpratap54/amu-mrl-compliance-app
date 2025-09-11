@@ -14,13 +14,12 @@ import {
   Tooltip,
   BarChart,
   Bar,
-  HeatMapChart, // Placeholder, since Recharts does not have HeatMap, will use custom or skip
 } from 'recharts';
 
 export default function Reports() {
   const { t } = useTranslation();
 
-  const { data, isLoading, error, refetch } = useQuery('reports', () => apiClient.get('/reports').then(r => r.data), {
+  const { data, isLoading, error, refetch } = useQuery('reports', () => api.getReports ? api.getReports() : Promise.resolve({}), {
     refetchOnWindowFocus: false,
   });
 
@@ -64,70 +63,84 @@ export default function Reports() {
   };
 
   return (
-    <div>
-      <h2>{t('nav.reports')}</h2>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <div>
-          <h3>{t('reports.totalLivestock')}</h3>
-          <p>{kpis.totalLivestock}</p>
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <h1>AMU/MRL Compliance Dashboard</h1>
+        <p>Comprehensive overview of livestock compliance metrics and analytics</p>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="dashboard-stats">
+        <div className="stat-card">
+          <h3>{kpis.totalLivestock}</h3>
+          <p>Total Livestock</p>
         </div>
-        <div>
-          <h3>{t('reports.amuEventsThisMonth')}</h3>
-          <p>{kpis.amuEventsThisMonth}</p>
+        <div className="stat-card">
+          <h3>{kpis.amuEventsThisMonth}</h3>
+          <p>AMU Events This Month</p>
         </div>
-        <div>
-          <h3>{t('reports.percentCompliant')}</h3>
-          <p>{kpis.percentCompliant}%</p>
+        <div className="stat-card">
+          <h3>{kpis.percentCompliant}%</h3>
+          <p>Compliance Rate</p>
         </div>
-        <div>
-          <h3>{t('reports.mrlRiskAlerts')}</h3>
-          <p>{kpis.mrlRiskAlerts}</p>
+        <div className="stat-card">
+          <h3>{kpis.mrlRiskAlerts}</h3>
+          <p>MRL Risk Alerts</p>
         </div>
       </div>
 
-      <button onClick={handleRescore}>{t('reports.rescoreButton')}</button>
+      <div className="card">
+        <button onClick={handleRescore} className="mb-3">Re-score Risk Analysis</button>
+      </div>
 
-      <h3>AMU per Week</h3>
-      <LineChart width={500} height={300} data={amuPerWeek}>
-        <Line type="monotone" dataKey="count" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="week" />
-        <YAxis />
-        <Tooltip />
-      </LineChart>
+      {/* Charts Section */}
+      <div className="chart-container">
+        <h3>AMU Events per Week</h3>
+        <LineChart width={500} height={300} data={amuPerWeek}>
+          <Line type="monotone" dataKey="count" stroke="#667eea" strokeWidth={3} />
+          <CartesianGrid stroke="#e1e5e9" />
+          <XAxis dataKey="week" />
+          <YAxis />
+          <Tooltip />
+        </LineChart>
+      </div>
 
-      <h3>Events by Medicine</h3>
-      <BarChart width={500} height={300} data={eventByMedicine}>
-        <XAxis dataKey="medicine" />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="count" fill="#82ca9d" />
-      </BarChart>
+      <div className="chart-container">
+        <h3>Events by Medicine Type</h3>
+        <BarChart width={500} height={300} data={eventByMedicine}>
+          <XAxis dataKey="medicine" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="count" fill="#667eea" />
+        </BarChart>
+      </div>
 
-      <h3>Risk Heatmap (animalTagId by week)</h3>
-      {/* Placeholder for heatmap chart */}
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Animal Tag</th>
-            <th>Week 1</th>
-            <th>Week 2</th>
-            <th>Week 3</th>
-            <th>Week 4</th>
-          </tr>
-        </thead>
-        <tbody>
-          {heatmapData.map((row) => (
-            <tr key={row.animalTagId}>
-              <td>{row.animalTagId}</td>
-              <td>{row.week1}</td>
-              <td>{row.week2}</td>
-              <td>{row.week3}</td>
-              <td>{row.week4}</td>
+      {/* Risk Heatmap Table */}
+      <div className="card">
+        <h3>Risk Heatmap (Animal Tag by Week)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Animal Tag</th>
+              <th>Week 1</th>
+              <th>Week 2</th>
+              <th>Week 3</th>
+              <th>Week 4</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {heatmapData.map((row) => (
+              <tr key={row.animalTagId}>
+                <td><strong>{row.animalTagId}</strong></td>
+                <td style={{background: row.week1 ? '#ff4757' : '#2ed573', color: 'white', textAlign: 'center'}}>{row.week1}</td>
+                <td style={{background: row.week2 ? '#ff4757' : '#2ed573', color: 'white', textAlign: 'center'}}>{row.week2}</td>
+                <td style={{background: row.week3 ? '#ff4757' : '#2ed573', color: 'white', textAlign: 'center'}}>{row.week3}</td>
+                <td style={{background: row.week4 ? '#ff4757' : '#2ed573', color: 'white', textAlign: 'center'}}>{row.week4}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

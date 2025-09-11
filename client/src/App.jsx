@@ -78,32 +78,36 @@ const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login (Demo)</h2>
-      <div>
-        <label>
-          Username:
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            aria-label="Username"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Role:
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="ADMIN">Admin</option>
-            <option value="VET">Veterinarian</option>
-            <option value="FARMER">Farmer</option>
-            <option value="AUDITOR">Auditor</option>
-          </select>
-        </label>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>AMU/MRL Compliance Login</h2>
+        <div className="form-group">
+          <label>
+            Username:
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              aria-label="Username"
+              placeholder="Enter your username"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Role:
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="ADMIN">Admin</option>
+              <option value="VET">Veterinarian</option>
+              <option value="FARMER">Farmer</option>
+              <option value="AUDITOR">Auditor</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 
@@ -111,23 +115,32 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <Navbar />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="loading">Loading...</div>}>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route element={<UserRoleGuard allowedRoles={['ADMIN', 'FARMER', 'VET', 'AUDITOR']} />}>
-              <Route path="/" element={<Reports />} />
-            </Route>
-            <Route element={<UserRoleGuard allowedRoles={['FARMER']} />}>
-              <Route path="/farmer" element={<FarmerForm />} />
-              <Route path="/livestock" element={<LivestockInventory />} />
-              <Route path="/medicine" element={<MedicineLog />} />
-              <Route path="/amu-log" element={<AMULogForm />} />
-            </Route>
-            <Route element={<UserRoleGuard allowedRoles={['FARMER', 'VET', 'AUDITOR']} />}>
-              <Route path="/chatbot" element={<Chatbot />} />
-              <Route path="/gamification" element={<Gamification />} />
-            </Route>
+            <Route path="/*" element={
+              <>
+                <Navbar />
+                <main className="container">
+                  <Routes>
+                    <Route element={<UserRoleGuard allowedRoles={['ADMIN', 'FARMER', 'VET', 'AUDITOR']} />}>
+                      <Route path="/" element={<Reports />} />
+                    </Route>
+                    <Route element={<UserRoleGuard allowedRoles={['FARMER']} />}>
+                      <Route path="/farmer" element={<FarmerForm />} />
+                      <Route path="/livestock" element={<LivestockInventory />} />
+                      <Route path="/medicine" element={<MedicineLog />} />
+                      <Route path="/amu-log" element={<AMULogForm />} />
+                    </Route>
+                    <Route element={<UserRoleGuard allowedRoles={['FARMER', 'VET', 'AUDITOR']} />}>
+                      <Route path="/chatbot" element={<Chatbot />} />
+                      <Route path="/gamification" element={<Gamification />} />
+                    </Route>
+                    <Route path="/reports" element={<Reports />} />
+                  </Routes>
+                </main>
+              </>
+            } />
           </Routes>
         </Suspense>
       </Router>
