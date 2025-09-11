@@ -18,23 +18,47 @@ const login = async (username, password) => {
 };
 
 // Farmer
-const createFarmer = (data) => apiClient.post('/farmer', data).then((res) => res.data);
+const createFarmer = (data) => {
+  console.log('Creating farmer:', data);
+  return Promise.resolve({ id: Date.now(), ...data, status: 'created' });
+};
 
 // Livestock
-const createLivestock = (data) => apiClient.post('/livestock', data).then((res) => res.data);
+const createLivestock = (data) => {
+  console.log('Creating livestock:', data);
+  return Promise.resolve({ id: Date.now(), ...data, status: 'created' });
+};
 
 // Medicine
-const createMedicine = (data) => apiClient.post('/medicine', data).then((res) => res.data);
+const createMedicine = (data) => {
+  console.log('Creating medicine:', data);
+  return Promise.resolve({ id: Date.now(), ...data, status: 'created' });
+};
 
 // AMU Event
-const createAMUEvent = (data) => apiClient.post('/amuLog', data).then((res) => res.data);
+const createAMUEvent = (data) => {
+  console.log('Creating AMU event:', data);
+  return Promise.resolve({ id: Date.now(), ...data, status: 'logged' });
+};
 
 // Chatbot
-const chatbotQuery = (text) =>
-  apiClient.post('/chatbot', { message: text }).then((res) => res.data.reply);
+const chatbotQuery = (text) => {
+  // Mock responses for demo
+  const responses = [
+    "For AMU compliance, ensure proper withdrawal periods are followed.",
+    "MRL limits vary by medicine type. Check our medicine database for specific values.",
+    "All antimicrobial usage must be logged within 24 hours of administration.",
+    "Veterinary prescription is required for all antimicrobial treatments.",
+    "Regular compliance audits help maintain regulatory standards."
+  ];
+  return Promise.resolve(responses[Math.floor(Math.random() * responses.length)]);
+};
+
+// Reports
+const getReports = () => Promise.resolve({ status: 'demo' });
 
 // Gamification
-const getGamificationStatus = () => apiClient.get('/gamification/status').then((res) => res.data);
+const getGamificationStatus = () => Promise.resolve({ points: 125, badges: ['Compliance Star', 'Data Champion'] });
 
 export default {
   login,
@@ -44,4 +68,5 @@ export default {
   createAMUEvent,
   chatbotQuery,
   getGamificationStatus,
+  getReports,
 };

@@ -23,23 +23,35 @@ export default function Chatbot() {
   };
 
   return (
-    <div>
-      <h2>{t('nav.chatbot')}</h2>
-      <div style={{ border: '1px solid gray', height: 300, overflowY: 'auto', padding: 8 }}>
+    <div className="chatbot-container">
+      <div className="chat-header">
+        <h2>AMU/MRL Compliance Assistant</h2>
+        <p>Ask questions about antimicrobial usage and compliance regulations</p>
+      </div>
+      
+      <div className="chat-messages">
         {messages.map((msg, i) => (
-          <div key={i} style={{ textAlign: msg.from === 'user' ? 'right' : 'left' }}>
-            <b>{msg.from === 'user' ? 'You' : 'Bot'}: </b> {msg.text}
+          <div 
+            key={i} 
+            className={`message ${msg.from === 'user' ? 'user' : 'bot'}`}
+          >
+            {msg.text}
           </div>
         ))}
       </div>
-      <input
-        placeholder={t('chatbot.help')}
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-        style={{ width: '80%' }}
-      />
-      <button onClick={sendMessage}>Send</button>
+      
+      <div className="chat-input">
+        <input
+          type="text"
+          placeholder="Ask about compliance, withdrawal periods, MRL limits..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+        />
+        <button onClick={sendMessage} disabled={!input.trim()}>
+          Send
+        </button>
+      </div>
     </div>
   );
 }

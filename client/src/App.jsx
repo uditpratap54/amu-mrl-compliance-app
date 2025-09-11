@@ -9,6 +9,7 @@ import {
   Navigate,
   Link,
   Outlet,
+  useNavigate,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import FarmerForm from './components/farmer.jsx';
@@ -21,10 +22,10 @@ import Reports from './pages/Reports.jsx';
 import { UserContext, UserProvider } from './utils/UserContext.jsx';
 
 // Mock auth context for demo - replace with real auth context/useQuery later
-const UserRoleGuard = ({ allowedRoles }) => {
+const UserRoleGuard = ({ allowedRoles, children }) => {
   const { user } = React.useContext(UserContext);
   if (!user) return <Navigate to="/login" replace />;
-  return allowedRoles.includes(user.role) ? <Outlet /> : <Navigate to="/" replace />;
+  return allowedRoles.includes(user.role) ? (children || <Outlet />) : <Navigate to="/" replace />;
 };
 
 const LanguageSwitcher = () => {
@@ -71,10 +72,14 @@ const LoginPage = () => {
   const [username, setUsername] = React.useState('');
   const [role, setRole] = React.useState('FARMER'); // Simplified login
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser({ username, role });
+    if (username.trim()) {
+      setUser({ username, role });
+      navigate('/');
+    }
   };
 
   return (
@@ -118,29 +123,26 @@ function App() {
         <Suspense fallback={<div className="loading">Loading...</div>}>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/*" element={
-              <>
-                <Navbar />
-                <main className="container">
-                  <Routes>
-                    <Route element={<UserRoleGuard allowedRoles={['ADMIN', 'FARMER', 'VET', 'AUDITOR']} />}>
+            <Route 
+              path="/*" 
+              element={
+                <UserRoleGuard allowedRoles={['ADMIN', 'FARMER', 'VET', 'AUDITOR']}>
+                  <Navbar />
+                  <main className="container">
+                    <Routes>
                       <Route path="/" element={<Reports />} />
-                    </Route>
-                    <Route element={<UserRoleGuard allowedRoles={['FARMER']} />}>
+                      <Route path="/reports" element={<Reports />} />
                       <Route path="/farmer" element={<FarmerForm />} />
                       <Route path="/livestock" element={<LivestockInventory />} />
                       <Route path="/medicine" element={<MedicineLog />} />
                       <Route path="/amu-log" element={<AMULogForm />} />
-                    </Route>
-                    <Route element={<UserRoleGuard allowedRoles={['FARMER', 'VET', 'AUDITOR']} />}>
                       <Route path="/chatbot" element={<Chatbot />} />
                       <Route path="/gamification" element={<Gamification />} />
-                    </Route>
-                    <Route path="/reports" element={<Reports />} />
-                  </Routes>
-                </main>
-              </>
-            } />
+                    </Routes>
+                  </main>
+                </UserRoleGuard>
+              } 
+            />
           </Routes>
         </Suspense>
       </Router>
