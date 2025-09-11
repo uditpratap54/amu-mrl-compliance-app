@@ -3,7 +3,7 @@
 
 import React, { Suspense, useState } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
   Navigate,
