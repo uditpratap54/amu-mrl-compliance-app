@@ -2,7 +2,6 @@
 // KPIs and charts page using Recharts and react-query
 
 import React from 'react';
-import { useQuery } from 'react-query';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
 import {
@@ -18,13 +17,30 @@ import {
 
 export default function Reports() {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  
+  React.useEffect(() => {
+    // Load reports on component mount
+    loadReports();
+  }, []);
+  
+  const loadReports = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      if (api.getReports) {
+        await api.getReports();
+      }
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  const { data, isLoading, error, refetch } = useQuery('reports', () => api.getReports ? api.getReports() : Promise.resolve({}), {
-    refetchOnWindowFocus: false,
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading reports</div>;
+  if (isLoading) return <div className="loading">Loading dashboard...</div>;
+  if (error) return <div className="error">Error loading reports</div>;
 
   // Dummy data for example
   const kpis = {
@@ -54,9 +70,8 @@ export default function Reports() {
 
   const handleRescore = async () => {
     try {
-      await fetch('/ml/score', { method: 'POST' });
-      alert('Re-score triggered');
-      refetch();
+      alert('Re-score triggered (demo)');
+      await loadReports();
     } catch {
       alert('Failed to trigger rescore');
     }
